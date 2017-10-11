@@ -1,0 +1,20 @@
+{
+  "name": "react-che",
+  "version": "1.0.6",
+  "description": "Minimalistic flux implementation for react",
+  "main": "index.es5.js",
+  "scripts": {
+    "build": "./node_modules/.bin/babel ./index.js --out-file index.es5.js",
+    "start":"npm install --prefix ./test && npm run start --prefix ./test"
+  },
+  "author": "Javier Leandro Arancibia (arancibiajav@gmail.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-react": "^6.24.1"
+  },
+  "dependencies": {
+    "debug": "^3.1.0"
+  }
+}

@@ -1,0 +1,1 @@
+web: npm install --prefix ./test && npm run start --prefix ./test
