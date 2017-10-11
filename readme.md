@@ -8,6 +8,11 @@ Minimalistic flux implementation for react
 
 There are Stores and Actions. Once you defined both, you bind Stores and call actions from inside Components. Thats it.
 
+## installation
+
+```
+yarn add react-che
+```
 
 ## Usage
 
@@ -45,14 +50,20 @@ render(<App />, document.getElementById('root'));
 ````
 
 
-## Examples and Testing
+## Examples
 
-From inside /test, run:
+### [react-che.now.sh](react-che.now.sh)
+
+Launch a localserver with examples.
 
 ````
-npm install
-npm start
+npm run build && npm run start
 ````
+
+## Development
+
+- Edit index.js
+- From inside /test, you can create your test unit.
 
 
 

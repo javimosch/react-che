@@ -4,15 +4,27 @@
   "description": "Minimalistic flux implementation for react",
   "main": "index.es5.js",
   "scripts": {
-    "build": "./node_modules/.bin/babel ./index.js --out-file index.es5.js",
-    "start":"npm install --prefix ./test && npm run start --prefix ./test"
+    "compile": "./node_modules/.bin/babel ./index.js --out-file index.es5.js",
+    "tests": "npm install --prefix ./test && npm run start --prefix ./test",
+    "transpileTests": "./node_modules/.bin/babel ./test/index.js --out-file ./test/bundle.js --source-maps inline",
+    "bundleTests": "./node_modules/.bin/browserify  ./test/bundle.js > ./test/react-che.js  -t babelify --no-sourceMaps",
+    "build": "npm run compile && npm run transpileTests && npm run bundleTests",
+    "start": "./node_modules/.bin/serve ./test -p 8080"
   },
   "author": "Javier Leandro Arancibia (arancibiajav@gmail.com)",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "babelify": "^7.3.0",
+    "browserify": "^14.4.0",
+    "debug": "^3.1.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "serve": "^6.2.0"
   },
   "dependencies": {
     "debug": "^3.1.0"
