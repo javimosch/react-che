@@ -1,15 +1,19 @@
 import "babel-polyfill";
 import React from 'react';
 import { render } from 'react-dom';
-window.localStorage.debug="*";
-//import che from 'react-che';
-import che from '../index.es5';
+window.localStorage.debug="react-che:*";
+import che from '../che';
 import debug from 'debug';
 var log = debug('test');
 
-import units from './test-units';
-units.minimal(che);
+import examples from '../examples';
 
+
+const ExamplesComponent = examples.ExamplesComponent;
+//
+che.reset();
+examples.configure(che);
+che.start();
 
 class App extends React.Component{
   componentWillMount(){
@@ -20,8 +24,8 @@ class App extends React.Component{
     return (
       <div>
         <h1>react-che</h1>
-        {json}
-        <button onClick={che.action.BACKEND_CALL}>Call</button>
+        <hr/>
+        <ExamplesComponent/>
       </div>
     );
   }

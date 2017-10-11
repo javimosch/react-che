@@ -5,11 +5,12 @@
   "main": "index.es5.js",
   "scripts": {
     "compile": "./node_modules/.bin/babel ./index.js --out-file index.es5.js",
-    "tests": "npm install --prefix ./test && npm run start --prefix ./test",
-    "transpileTests": "./node_modules/.bin/babel ./test/index.js --out-file ./test/bundle.js --source-maps inline",
-    "bundleTests": "./node_modules/.bin/browserify  ./test/bundle.js > ./test/react-che.js  -t babelify --no-sourceMaps",
-    "build": "npm run compile && npm run transpileTests && npm run bundleTests",
-    "start": "./node_modules/.bin/serve ./test -p 8080"
+    "transpileExamples": "./node_modules/.bin/babel ./dist/index.js --out-file ./dist/intermediate.js --source-maps inline",
+    "bundleExamples": "./node_modules/.bin/browserify  ./dist/intermediate.js > ./dist/bundle.js  -t babelify --no-sourceMaps",
+    "build": "npm run compile && npm run transpileExamples && npm run bundleExamples",
+    "watch": "gulp",
+    "start": "./node_modules/.bin/serve ./dist -p 8080",
+    "dev": "run-p start watch"
   },
   "author": "Javier Leandro Arancibia (arancibiajav@gmail.com)",
   "license": "ISC",
@@ -22,9 +23,17 @@
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
     "debug": "^3.1.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-watch": "^4.3.11",
+    "npm-run-all": "^4.1.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "serve": "^6.2.0"
+    "serve": "^6.2.0",
+    "shelljs": "^0.7.8",
+    "socket.io": "^2.0.3"
   },
   "dependencies": {
     "debug": "^3.1.0"

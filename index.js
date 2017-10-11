@@ -1,6 +1,6 @@
 import debug from 'debug';
 const log = debug('react-che:');
-
+//
 let COMPONENTS_STORE_LISTENERS = {};
 let STORE_ACTION_LISTENERS = {};
 let STORES = {};
@@ -38,11 +38,11 @@ function cheAction() {
   var availableActions = {};
 
   function createActionHandler(name) {
-    availableActions[name] = async() => {
+    availableActions[name] = async function(){
       let availableListeners = STORE_ACTION_LISTENERS[name];
       if (availableListeners) {
         for (var x in availableListeners) {
-          availableListeners[x]();
+          availableListeners[x].apply({},arguments);
         }
       }
     }
@@ -71,8 +71,10 @@ che.defineStore = function(name, state, handler) {
           log('Store',name,'binding action',ACTIONS[x]);
           return (listener) => {
             STORE_ACTION_LISTENERS[actionName] = STORE_ACTION_LISTENERS[actionName] || [];
-            let storeListener = async() => {
-              await listener.apply({}, [state]);
+            let storeListener = async function(){
+              let args = Array.prototype.slice.call(arguments)
+              args.unshift(state)
+              await listener.apply({}, args);
               let availableComponentStoreListeners = COMPONENTS_STORE_LISTENERS[name];
               if (availableComponentStoreListeners) {
                 for (var i in availableComponentStoreListeners) {

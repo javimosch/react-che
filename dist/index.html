@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>REACT-CHE</title>
+    <link rel="stylesheet" type="text/css" href="./bundle.css">
+
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script type="text/javascript">
+    const socket = io('http://localhost:8081');
+
+    socket.on('reload', function(o) {
+        window.location.reload();
+    });
+    </script>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script type="text/javascript" src="./bundle.js"></script>
+   
+</body>
+
+</html>

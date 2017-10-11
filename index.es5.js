@@ -15,7 +15,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 var log = (0, _debug2.default)('react-che:');
-
+//
 var COMPONENTS_STORE_LISTENERS = {};
 var STORE_ACTION_LISTENERS = {};
 var STORES = {};
@@ -52,10 +52,10 @@ function cheAction() {
   var availableActions = {};
 
   function createActionHandler(name) {
-    var _this = this;
-
     availableActions[name] = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-      var availableListeners, x;
+      var availableListeners,
+          x,
+          _args = arguments;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -64,7 +64,7 @@ function cheAction() {
 
               if (availableListeners) {
                 for (x in availableListeners) {
-                  availableListeners[x]();
+                  availableListeners[x].apply({}, _args);
                 }
               }
 
@@ -73,7 +73,7 @@ function cheAction() {
               return _context.stop();
           }
         }
-      }, _callee, _this);
+      }, _callee, this);
     }));
   }
   for (var x in ACTIONS) {
@@ -83,8 +83,6 @@ function cheAction() {
 }
 
 che.defineStore = function (name, state, handler) {
-  var _this2 = this;
-
   if (typeof STORES[name] !== 'undefined') {
     throw Error('che: ' + name + ' store is duplicated');
   }
@@ -105,15 +103,21 @@ che.defineStore = function (name, state, handler) {
             STORE_ACTION_LISTENERS[actionName] = STORE_ACTION_LISTENERS[actionName] || [];
             var storeListener = function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-                var availableComponentStoreListeners, i;
+                var args,
+                    availableComponentStoreListeners,
+                    i,
+                    _args2 = arguments;
                 return regeneratorRuntime.wrap(function _callee2$(_context2) {
                   while (1) {
                     switch (_context2.prev = _context2.next) {
                       case 0:
-                        _context2.next = 2;
-                        return listener.apply({}, [state]);
+                        args = Array.prototype.slice.call(_args2);
 
-                      case 2:
+                        args.unshift(state);
+                        _context2.next = 4;
+                        return listener.apply({}, args);
+
+                      case 4:
                         availableComponentStoreListeners = COMPONENTS_STORE_LISTENERS[name];
 
                         if (availableComponentStoreListeners) {
@@ -122,12 +126,12 @@ che.defineStore = function (name, state, handler) {
                           }
                         }
 
-                      case 4:
+                      case 6:
                       case 'end':
                         return _context2.stop();
                     }
                   }
-                }, _callee2, _this2);
+                }, _callee2, this);
               }));
 
               return function storeListener() {
