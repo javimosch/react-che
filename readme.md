@@ -52,7 +52,7 @@ render(<App />, document.getElementById('root'));
 
 ## Examples
 
-### [react-che.now.sh](react-che.now.sh)
+### [react-che.now.sh](https://react-che.now.sh/)
 
 Launch a localserver with examples.
 
